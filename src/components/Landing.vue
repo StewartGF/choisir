@@ -2,9 +2,9 @@
   <div>
     <Navbar />
     <div
-      class="container mx-auto relative text-center text-black h-full align-middle px-8 pb-8 pt-2"
+      class="container mx-auto text-center relative text-black h-full align-middle px-8 pb-8 pt-2"
     >
-      <div id="firstblock" class="h-screen">
+      <div id="firstblock" class="h-auto">
         <span class="font-black text-4xl tracking-wider">Bienvenido 🤗</span>
         <div class="mt-6 lg:mt-16">
           <section>¿Alguna vez te has preguntado que tan buenas son tus primeras impresiones?</section>
@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div id="secondblock" class="h-full relative -mt-40">
+      <div id="secondblock" class="h-auto">
         <div
           id="two-block-two"
           class="grid mt-12 h-full grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 font-bold"
