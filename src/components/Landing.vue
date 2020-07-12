@@ -16,11 +16,11 @@
             >Anime</router-link>
             <router-link
               class="border border-blue-500 rounded px-4 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white hover:border-black"
-              to="/"
-            >Películas</router-link>
+              to="/series"
+            >Series</router-link>
             <router-link
               class="border border-blue-500 rounded px-4 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white hover:border-black"
-              to="/"
+              to="/juegos"
             >Juegos</router-link>
           </div>
         </div>
@@ -70,8 +70,8 @@
             <span>Toda la información la obtuvimos desde páginas relacionadas y dedicadas a cada tema.</span>
             <span
               class="inline-block mt-8"
-            >Si te interesa saber más, por favor dirígete a las páginas web de Rawg y Kitsu para ver sus contenidos 🥰</span>
-            <div class="grid grid-cols-2 mt-2 mb-4 lg:mt-8 m-auto text-center">
+            >Si te interesa saber más, por favor dirígete a las páginas web de Kitsu, Rawg y TVMazes para ver sus contenidos 🥰</span>
+            <div class="grid grid-cols-3 mt-2 mb-4 lg:mt-8 m-auto text-center">
               <div class="flex m-auto">
                 <a href="https://kitsu.io/explore/anime" target="_blank">
                   <img
@@ -86,6 +86,15 @@
                   <img
                     class="rounded-full w-24 h-24 lg:w-32 lg:h-32 border border-blue-500 object-contain"
                     src="@/assets/rawg.png"
+                    alt
+                  />
+                </a>
+              </div>
+              <div class="flex m-auto">
+                <a href="https://www.tvmazes.com/" target="_blank">
+                  <img
+                    class="rounded-full w-24 h-24 lg:w-32 lg:h-32 border border-blue-500 object-scale-down"
+                    src="@/assets/tvmazes.png"
                     alt
                   />
                 </a>

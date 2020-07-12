@@ -1,7 +1,11 @@
 <template>
   <div>
     <Navbar />
-    <h1>Versión Anime ! 🤭</h1>
+    <div
+      class="container mx-auto text-center relative text-black h-full align-middle px-8 pb-8 pt-2"
+    >
+      <span class="font-black text-4xl">Versión Anime ! 🐱‍👤</span>
+    </div>
   </div>
 </template>
 

@@ -10,10 +10,15 @@ Qué tan buenas primeras impresiones tienes?
 - Vuex
 - Vue Router
 
+## Framework CSS
+
+- Tailwind CSS
+
 ## APIs consumidas
 
-- https://kitsu.io/explore/anime
-- https://rawg.io/ -> https://api.rawg.io/api/games
+- https://kitsu.io/explore/anime ➡ https://kitsu.docs.apiary.io/
+- https://rawg.io/ ➡ https://api.rawg.io/api/games
+- http://www.tvmaze.com/ ➡ http://www.tvmaze.com/api
 
 # TODO 📜
 
@@ -21,7 +26,7 @@ Qué tan buenas primeras impresiones tienes?
 
 ✅ Agregar Router
 
-⬜ Agregar estructura Vuex
+✅ Agregar estructura Vuex
 
 ⬜ Consumir APIs necesarias
 
