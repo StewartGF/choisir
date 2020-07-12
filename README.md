@@ -12,21 +12,24 @@ Qué tan buenas primeras impresiones tienes?
 
 ## APIs consumidas
 
-- Por definir
+- https://kitsu.io/explore/anime
+- https://rawg.io/ -> https://api.rawg.io/api/games
 
-# TODO
+# TODO 📜
+
+✅ Preparar el Landing page
+
+✅ Agregar Router
 
 ⬜ Agregar estructura Vuex
 
-⬜ Agregar Router
-
 ⬜ Consumir APIs necesarias
-
-⬜ Actualizar Readme
 
 ⬜ Crear estado de Loading
 
 ⬜ Crear animaciones para la selección de una portada
+
+⬜ Actualizar Readme en término
 
 ⬜ Deploy en Netlify :D
 
