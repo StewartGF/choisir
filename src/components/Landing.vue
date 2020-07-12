@@ -75,7 +75,7 @@
               <div class="flex m-auto">
                 <a href="https://kitsu.io/explore/anime" target="_blank">
                   <img
-                    class="rounded-full w-24 h-24 lg:w-32 lg:h-32 border border-blue-500 object-contain"
+                    class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border border-blue-500 object-contain"
                     src="@/assets/kitsu.png"
                     alt
                   />
@@ -84,7 +84,7 @@
               <div class="flex m-auto">
                 <a href="https://rawg.io/" target="_blank">
                   <img
-                    class="rounded-full w-24 h-24 lg:w-32 lg:h-32 border border-blue-500 object-contain"
+                    class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border border-blue-500 object-contain"
                     src="@/assets/rawg.png"
                     alt
                   />
@@ -93,7 +93,7 @@
               <div class="flex m-auto">
                 <a href="https://www.tvmazes.com/" target="_blank">
                   <img
-                    class="rounded-full w-24 h-24 lg:w-32 lg:h-32 border border-blue-500 object-scale-down"
+                    class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border border-blue-500 object-scale-down"
                     src="@/assets/tvmazes.png"
                     alt
                   />
