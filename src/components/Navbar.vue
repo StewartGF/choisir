@@ -29,11 +29,11 @@
             class="block mt-4 font-medium lg:px-6 tracking-wide lg:inline-block lg:mt-0 text-black hover:text-blue-400 mr-4"
           >Anime</router-link>
           <router-link
-            to="/anime"
+            to="/series"
             class="block mt-4 font-medium lg:px-6 tracking-wide lg:inline-block lg:mt-0 text-black hover:text-blue-400 mr-4"
-          >Películas</router-link>
+          >Series</router-link>
           <router-link
-            to="/anime"
+            to="/juegos"
             class="block mt-4 font-medium lg:px-6 tracking-wide lg:inline-block lg:mt-0 text-black hover:text-blue-400 mr-4"
           >Juegos</router-link>
         </div>
