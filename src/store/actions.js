@@ -11,21 +11,30 @@ export const getGamesData = async ({ commit }) => {
 export const getAnimeData = async ({ commit }) => {
   let payload = [];
   commit("SET_LOADING", true);
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 2; ) {
     let number = Math.floor(Math.random() * 12062) + 1;
     const response = await fetch(
       `https://kitsu.io/api/edge/anime?page[limit]=1&page[offset]=${number}`
     );
-    console.log(response);
-    if (response) {
-      const data = await response.json();
+    if (response.status == 200) {
+      const { data } = await response.json();
       const obj = {
-        enName: data.attributes.titles.en,
-        jpName: data.attributes.titles.en,
-        image: data.attributes.posterImage.original,
-        score: data.attributes.averageRating,
+        enName: data[0].attributes.titles.en_jp,
+        jpName: data[0].attributes.titles.ja_jp,
+        imageOriginal: data[0].attributes.posterImage.original,
+        imageLarge: data[0].attributes.posterImage.large,
+        score: data[0].attributes.averageRating,
+        startDate: data[0].attributes.startDate,
+        status: data[0].attributes.status,
+        showType: data[0].attributes.showType,
+        episodeCount: data[0].attributes.episodeCount,
       };
-      payload.push(obj);
+      if (obj.score != null) {
+        if (obj.showType == "TV") {
+          i++;
+          payload.push(obj);
+        }
+      }
     }
   }
   commit("SET_ANIME_DATA", payload);
