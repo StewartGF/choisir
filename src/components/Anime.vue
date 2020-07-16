@@ -4,14 +4,68 @@
     <div
       class="container mx-auto text-center relative text-black h-full align-middle px-8 pb-8 pt-2"
     >
-      <span class="font-black text-4xl">Versión Anime ! 🐱‍👤</span>
+      <div v-if="isFirstEntry">
+        <span class="font-black text-4xl">Versión Anime !💥</span>
+        <span class="font-bold text-2xl">Repasemos...</span>
+        <span
+          class="block mt-6 text-lg"
+        >El objetivo es que selecciones el anime que creas que tiene más rating/puntuación por la audiencia.</span>
+        <span class="block mt-6 text-lg">Si estás listo, comencemos 🤓</span>
+        <button
+          class="tracking-widest border-2 rounded mt-32 py-2 px-5 border-blue-500 font-black text-blue-500 hover:bg-blue-500 hover:text-white"
+          @click="isFirstEntry = !isFirstEntry"
+        >Démosle !</button>
+      </div>
+      <div v-else>
+        <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
+          <div v-for="anime in animeData" :key="anime.enName">
+            <div
+              class="p-2 border-2 hover:border-blue-500 w-full rounded overflow-hidden h-auto shadow-lg"
+              @click="alert(anime)"
+            >
+              <img
+                class="w-full h-56 lg:h-64 object-contain md:object-contain"
+                :src="anime.imageOriginal ? anime.imageOriginal : anime.imageLarge"
+                alt="Sunset in the mountains"
+              />
+              <div class="px-1 py-1 lg:px-6 lg:py-4">
+                <div class="font-bold text-xl mb-2 w-full">{{ anime.enName}}</div>
+                <p class="text-gray-700 text-base font-medium">
+                  <span
+                    class="border text-xs border-full bg-gray-400 px-2 rounded-full"
+                  >{{anime.jpName}}</span>
+                </p>
+                <p class="text-gray-700 text-base">Episodios: {{anime.episodeCount}}</p>
+                <p class="text-gray-700 text-base">Fecha de emisión:{{anime.startDate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import { mapState } from "vuex";
 export default {
+  data: function() {
+    return {
+      isFirstEntry: true
+    };
+  },
+  computed: {
+    ...mapState(["animeData"]) // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
+  },
+  mounted() {
+    this.$store.dispatch("getAnimeData");
+  },
+  methods: {
+    alert(obj) {
+      alert("clickea3" + obj);
+    }
+  },
   components: {
     Navbar
   }
