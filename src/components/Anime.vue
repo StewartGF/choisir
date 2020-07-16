@@ -17,21 +17,23 @@
         >Démosle !</button>
       </div>
       <div v-else>
-        <span class="font-black text-lg">¿ Cuál tiene mejor puntuación ?</span>
-        <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 mt-8 md:mt-12">
+        <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
           <div v-for="anime in animeData" :key="anime.enName">
             <div
               class="p-2 border-2 hover:border-blue-500 w-full rounded overflow-hidden h-auto shadow-lg"
+              @click="alert(anime)"
             >
               <img
-                class="w-full h-32 lg:h-64 object-contain"
+                class="w-full h-56 lg:h-64 object-contain md:object-contain"
                 :src="anime.imageOriginal ? anime.imageOriginal : anime.imageLarge"
                 alt="Sunset in the mountains"
               />
               <div class="px-1 py-1 lg:px-6 lg:py-4">
                 <div class="font-bold text-xl mb-2 w-full">{{ anime.enName}}</div>
                 <p class="text-gray-700 text-base font-medium">
-                  <span class="border border-full bg-gray-400 px-2 rounded-full">{{anime.jpName}}</span>
+                  <span
+                    class="border text-xs border-full bg-gray-400 px-2 rounded-full"
+                  >{{anime.jpName}}</span>
                 </p>
                 <p class="text-gray-700 text-base">Episodios: {{anime.episodeCount}}</p>
                 <p class="text-gray-700 text-base">Fecha de emisión:{{anime.startDate}}</p>
@@ -59,7 +61,11 @@ export default {
   mounted() {
     this.$store.dispatch("getAnimeData");
   },
-  methods: {},
+  methods: {
+    alert(obj) {
+      alert("clickea3" + obj);
+    }
+  },
   components: {
     Navbar
   }

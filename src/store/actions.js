@@ -31,8 +31,12 @@ export const getAnimeData = async ({ commit }) => {
       };
       if (obj.score != null) {
         if (obj.showType == "TV") {
-          i++;
-          payload.push(obj);
+          if (obj.enName != undefined) {
+            if (obj.jpName != undefined) {
+              i++;
+              payload.push(obj);
+            }
+          }
         }
       }
     }
