@@ -26,6 +26,7 @@
               @click="alert(anime)"
             >
               <img
+                loading="lazy"
                 class="w-full h-56 lg:h-64 object-contain md:object-contain"
                 :src="anime.imageOriginal ? anime.imageOriginal : anime.imageLarge"
                 alt="Sunset in the mountains"
