@@ -2,7 +2,7 @@
   <div>
     <nav class="flex items-center justify-between flex-wrap bg-white p-4">
       <router-link to="/" class="flex items-center flex-shrink-0 text-xl text-black mr-6">
-        <span class="text-xl lg:text-3xl tracking-thight font-black">Choisir</span>
+        <span class="text-xl lg:text-2xl tracking-thight font-black">Choisir</span>
       </router-link>
       <div class="block lg:hidden">
         <button
@@ -38,12 +38,12 @@
           <a
             href="https://github.com/StewartGF"
             target="_blank"
-            class="group inline-block mt-4 font-bold border border-black rounded-full py-2 px-4 lg:px-2 lg:py-2 tracking-wide lg:inline-block lg:mt-0 text-black hover:border-blue-400 mr-4"
+            class="group inline-block mt-4 font-bold border-2 border-black rounded-full py-2 px-4 lg:px-2 lg:py-2 tracking-wide lg:inline-block lg:mt-0 text-black hover:border-blue-700 mr-4 hover:bg-blue-500 hover:text-white hover:border-2"
           >
-            <span class="inline-block align-middle">
+            <span class="inline-block align-middle group-hover:bg-blue-500 group-hover:text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-brand-github stroke-current text-black"
+                class="icon icon-tabler icon-tabler-brand-github stroke-current text-black group-hover:bg-blue-500 group-hover:text-white"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"

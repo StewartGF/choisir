@@ -28,7 +28,7 @@
               <img
                 loading="lazy"
                 class="w-full h-56 lg:h-64 object-contain md:object-contain"
-                :src="anime.imageOriginal ? anime.imageOriginal : anime.imageLarge"
+                :src="anime.imageLarge"
                 alt="Sunset in the mountains"
               />
               <div class="px-1 py-1 lg:px-6 lg:py-4">
