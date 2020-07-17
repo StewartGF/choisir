@@ -6,15 +6,17 @@
     >
       <div v-if="isFirstEntry">
         <span class="font-black text-4xl">Versión Anime !💥</span>
-        <span class="font-bold text-2xl">Repasemos...</span>
+        <span class="block mt-6 font-bold text-2xl">Repasemos...</span>
         <span
-          class="block mt-6 text-lg"
+          class="block text-lg tracking-tighter text-gray-700"
         >El objetivo es que selecciones el anime que creas que tiene más rating/puntuación por la audiencia.</span>
-        <span class="block mt-6 text-lg">Si estás listo, comencemos 🤓</span>
+        <span
+          class="block mt-6 text-lg tracking-tighter text-gray-700"
+        >Si estás listo, comencemos 🤓</span>
         <button
-          class="tracking-widest border-2 rounded mt-32 py-2 px-5 border-blue-500 font-black text-blue-500 hover:bg-blue-500 hover:text-white"
+          class="border text-white bg-blue-500 rounded-full mt-32 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
           @click="isFirstEntry = !isFirstEntry"
-        >Démosle !</button>
+        >OK !</button>
       </div>
       <div v-else>
         <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
