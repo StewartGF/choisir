@@ -39,7 +39,12 @@
             >Sólo tómate tu tiempo, este es un proyecto hecho para pasar el rato 🙂, así que, relájate y veamos qué tal te va.</span>
           </div>
           <div class="image-div relative">
-            <img class="h-48 w-full text-left" src="@/assets/undraw_relax.svg" alt="relax" />
+            <img
+              loading="lazy"
+              class="h-48 w-full text-left"
+              src="@/assets/undraw_relax.svg"
+              alt="relax"
+            />
           </div>
         </div>
       </div>
@@ -49,7 +54,12 @@
           class="grid gap-4 mt-12 py-16 lg:py-32 h-full grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 font-bold tracking-tight"
         >
           <div class="image-div">
-            <img class="w-full text-left" src="@/assets/people_opinion.svg" alt="opinion" />
+            <img
+              loading="lazy"
+              class="w-full text-left"
+              src="@/assets/people_opinion.svg"
+              alt="opinion"
+            />
           </div>
           <div class="self-center h-auto text-div w-full text-center lg:text-left px-12 lg:px-8">
             <span class="block text-5xl font-bold tracking-tight">Sin sesgo</span>
@@ -83,6 +93,7 @@
               <div class="flex m-auto">
                 <a href="https://kitsu.io/explore/anime" target="_blank">
                   <img
+                    loading="lazy"
                     class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border border-blue-500 object-contain"
                     src="@/assets/kitsu.png"
                     alt
@@ -92,6 +103,7 @@
               <div class="flex m-auto">
                 <a href="https://rawg.io/" target="_blank">
                   <img
+                    loading="lazy"
                     class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border border-blue-500 object-contain"
                     src="@/assets/rawg.png"
                     alt
@@ -101,6 +113,7 @@
               <div class="flex m-auto">
                 <a href="https://www.tvmazes.com/" target="_blank">
                   <img
+                    loading="lazy"
                     class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border border-blue-500 object-scale-down"
                     src="@/assets/tvmazes.png"
                     alt
@@ -117,7 +130,7 @@
             >Jugar</button>
           </div>
           <div class="image-div order-first md:order-last">
-            <img class="w-full text-left" src="@/assets/all_data.svg" alt="relax" />
+            <img loading="lazy" class="w-full text-left" src="@/assets/all_data.svg" alt="relax" />
           </div>
         </div>
       </div>
