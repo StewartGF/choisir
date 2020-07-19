@@ -19,6 +19,7 @@ export const getAnimeData = async ({ commit }) => {
     if (response.status == 200) {
       const { data } = await response.json();
       const obj = {
+        id: data[0].id,
         enName: data[0].attributes.titles.en_jp,
         jpName: data[0].attributes.titles.ja_jp,
         imageOriginal: data[0].attributes.posterImage.original,
@@ -28,6 +29,9 @@ export const getAnimeData = async ({ commit }) => {
         status: data[0].attributes.status,
         showType: data[0].attributes.showType,
         episodeCount: data[0].attributes.episodeCount,
+        higher: false,
+        lower: false,
+        selected: false,
       };
       if (obj.score != null) {
         if (obj.showType == "TV") {

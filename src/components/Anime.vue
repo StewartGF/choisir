@@ -19,35 +19,50 @@
         >OK !</button>
       </div>
       <div v-else>
-        <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
-          <div v-for="anime in animeData" :key="anime.enName">
-            <div
-              class="group border-2 hover:border-4 hover:bg-blue-500 hover:text-white hover:border-blue-700 p-2 w-full rounded overflow-hidden h-auto shadow-lg"
-              @click="alert(anime)"
-            >
-              <img
-                loading="lazy"
-                class="w-full h-56 lg:h-64 object-contain md:object-contain"
-                :src="anime.imageLarge"
-                alt="Sunset in the mountains"
-              />
-              <div class="px-1 py-1 lg:px-6 lg:py-4">
-                <div class="font-bold text-xl mb-2 w-full">{{ anime.enName}}</div>
-                <p class="text-gray-700 text-base font-medium">
-                  <span
-                    class="border group-hover:border-2 text-xs border-full bg-gray-400 px-2 rounded-full"
-                  >{{anime.jpName}}</span>
-                </p>
-                <p
-                  class="text-gray-700 text-base group-hover:text-white"
-                >Episodios: {{anime.episodeCount}}</p>
-                <p
-                  class="text-gray-700 text-base group-hover:text-white"
-                >Fecha de emisión:{{anime.startDate}}</p>
+        <div v-if="isLoading" class="container mt-16">
+          <loading-spinner />
+        </div>
+        <div v-else class="relative">
+          <span class="float-left top-0 my-4 font-black">Puntuación: {{puntuacionAnime}}</span>
+          <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
+            <div v-for="anime in animeData" :key="anime.enName" class>
+              <div
+                :id="anime.id"
+                :class="[ anime.selected ? 'border-yellow-500 border-4 ' : 'border-none' ,anime.higher ? 'bg-green-500 text-white' : 'bg-white' , anime.lower ? 'bg-red-500 text-white' : 'bg-white']"
+                class="group relative border-2 hover:border-4 hover:border-blue-700 p-2 w-full rounded overflow-hidden h-auto shadow-lg transition ease-out duration-500"
+                @click="handleSelection(anime)"
+              >
+                <span
+                  class="absolute font-bold text-xl top-0 right-0 mr-5"
+                  v-if="showScore"
+                >⭐{{anime.score}}</span>
+                <img
+                  loading="lazy"
+                  class="w-full h-32 lg:h-64 object-contain md:object-contain"
+                  :src="anime.imageLarge"
+                  alt="Sunset in the mountains"
+                />
+                <div class="px-1 py-1 lg:px-6 lg:py-4">
+                  <div
+                    class="font-bold text-xl mb-2 w-full truncate lg:break-words"
+                  >{{ anime.enName}}</div>
+                  <p class="text-gray-700 text-base font-medium">
+                    <span
+                      class="border group-hover:border-2 text-xs border-full bg-gray-400 px-2 rounded-full"
+                    >{{anime.jpName}}</span>
+                  </p>
+                  <p class="text-base">Episodios: {{anime.episodeCount}}</p>
+                  <p class="text-base">Fecha de emisión:{{anime.startDate}}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <button
+          class="border text-white bg-blue-500 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
+          @click="handleNext"
+          v-if="showScore"
+        >Siguiente</button>
       </div>
     </div>
   </div>
@@ -55,26 +70,50 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import LoadingSpinner from "./LoadingSpinner.vue";
 import { mapState } from "vuex";
 export default {
   data: function() {
     return {
-      isFirstEntry: true
+      isFirstEntry: true,
+      showScore: false
     };
   },
   computed: {
-    ...mapState(["animeData"]) // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
+    ...mapState(["animeData", "isLoading", "puntuacionAnime"]) // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
   },
   mounted() {
     this.$store.dispatch("getAnimeData");
   },
   methods: {
-    alert(obj) {
-      alert("clickea3" + obj);
+    handleSelection(anime) {
+      anime.selected = true;
+      let ordenRanking = [];
+      if (
+        this.$store.state.animeData[0].score >
+        this.$store.state.animeData[1].score
+      ) {
+        ordenRanking.push(this.$store.state.animeData[0]);
+        ordenRanking.push(this.$store.state.animeData[1]);
+      } else {
+        ordenRanking.push(this.$store.state.animeData[1]);
+        ordenRanking.push(this.$store.state.animeData[0]);
+      }
+      ordenRanking[0].higher = true;
+      ordenRanking[1].lower = true;
+      this.showScore = !this.showScore;
+      if (anime.id == ordenRanking[0].id) {
+        this.$store.state.puntuacionAnime++;
+      }
+    },
+    handleNext() {
+      this.$store.dispatch("getAnimeData");
+      this.showScore = !this.showScore;
     }
   },
   components: {
-    Navbar
+    Navbar,
+    LoadingSpinner
   }
 };
 </script>

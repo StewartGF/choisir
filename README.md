@@ -28,11 +28,19 @@ Qué tan buenas primeras impresiones tienes?
 
 ✅ Agregar estructura Vuex
 
-⬜ Consumir APIs necesarias
+✅ Consumir APIs necesarias
 
-⬜ Crear estado de Loading
+✅ Crear estado de Loading
 
-⬜ Crear animaciones para la selección de una portada
+✅ Crear animaciones para la selección de una portada
+
+✅ Agregar sistema de puntaje
+
+✅ Completar vista Anime
+
+⬜ Completar vista Series
+
+⬜ Completar vista Juegos
 
 ⬜ Actualizar Readme en término
 
