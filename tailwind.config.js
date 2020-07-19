@@ -1,3 +1,5 @@
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
   purge: ["./src/**/*.html", "./src/**/*.vue"],
   target: "relaxed",
@@ -736,5 +738,34 @@ module.exports = {
     transitionDelay: ["responsive"],
   },
   corePlugins: {},
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities }) {
+      const filterUtilities = {
+        ".filter-blur-0": {
+          filter: "blur(0px)",
+        },
+        ".filter-blur-10": {
+          filter: "blur(10px)",
+        },
+        ".filter-blur-20": {
+          filter: "blur(20px)",
+        },
+        ".filter-blur-30": {
+          filter: "blur(30px)",
+        },
+      };
+      const clipPath = {
+        ".clip-circle-180-center": {
+          clipPath: "circle(180px at center 0)",
+        },
+      };
+
+      addUtilities(filterUtilities, {
+        variants: ["responsive", "hover"],
+      });
+      addUtilities(clipPath, {
+        variants: ["responsive", "hover"],
+      });
+    }),
+  ],
 };
