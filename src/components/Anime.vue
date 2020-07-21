@@ -76,7 +76,8 @@ export default {
   data: function() {
     return {
       isFirstEntry: true,
-      showScore: false
+      showScore: false,
+      flagScore: false
     };
   },
   computed: {
@@ -87,28 +88,35 @@ export default {
   },
   methods: {
     handleSelection(anime) {
-      anime.selected = true;
-      let ordenRanking = [];
-      if (
-        this.$store.state.animeData[0].score >
-        this.$store.state.animeData[1].score
-      ) {
-        ordenRanking.push(this.$store.state.animeData[0]);
-        ordenRanking.push(this.$store.state.animeData[1]);
+      if (!this.flagScore) {
+        anime.selected = true;
+        let ordenRanking = [];
+        if (
+          this.$store.state.animeData[0].score >
+          this.$store.state.animeData[1].score
+        ) {
+          ordenRanking.push(this.$store.state.animeData[0]);
+          ordenRanking.push(this.$store.state.animeData[1]);
+        } else {
+          ordenRanking.push(this.$store.state.animeData[1]);
+          ordenRanking.push(this.$store.state.animeData[0]);
+        }
+        ordenRanking[0].higher = true;
+        ordenRanking[1].lower = true;
+        this.showScore = !this.showScore;
+
+        if (anime.id == ordenRanking[0].id) {
+          this.$store.state.puntuacionAnime++;
+        }
+        this.flagScore = true; // para evitar bug de multiples clicks correctos
       } else {
-        ordenRanking.push(this.$store.state.animeData[1]);
-        ordenRanking.push(this.$store.state.animeData[0]);
-      }
-      ordenRanking[0].higher = true;
-      ordenRanking[1].lower = true;
-      this.showScore = !this.showScore;
-      if (anime.id == ordenRanking[0].id) {
-        this.$store.state.puntuacionAnime++;
+        return;
       }
     },
     handleNext() {
       this.$store.dispatch("getAnimeData");
       this.showScore = !this.showScore;
+      this.flagScore = false;
     }
   },
   components: {
