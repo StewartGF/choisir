@@ -22,29 +22,33 @@ Qué tan buenas primeras impresiones tienes?
 
 # TODO 📜
 
-✅ Preparar el Landing page
+- [x] Preparar el Landing page
 
-✅ Agregar Router
+- [x] Agregar Router
 
-✅ Agregar estructura Vuex
+- [x] Agregar estructura Vuex
 
-✅ Consumir APIs necesarias
+- [x] Consumir APIs necesarias
 
-✅ Crear estado de Loading
+- [x] Crear estado de Loading
 
-✅ Crear animaciones para la selección de una portada
+- [x] Crear animaciones para la selección de una portada
 
-✅ Agregar sistema de puntaje
+- [x] Agregar sistema de puntaje
 
-✅ Completar vista Anime
+- [x] Completar vista Anime
 
-⬜ Completar vista Series
+- [ ] Agregar un sistema de vidas, cada 10, ganas otra, perder te quita media vida.
 
-⬜ Completar vista Juegos
+- [ ] Agregar un sistema de Ranking, Firebase probablemente ❔
 
-⬜ Actualizar Readme en término
+- [ ] Completar vista Series
 
-⬜ Deploy en Netlify :D
+- [ ] Completar vista Juegos
+
+- [ ] Actualizar Readme
+
+- [ ] Deploy en Netlify :D
 
 ## Project setup
 
