@@ -1,11 +1,36 @@
-export const getGamesData = async ({ commit }) => {
+export const getGamesData = async ({ commit, dispatch }) => {
+  let number = Math.floor(Math.random() * 10) + 1;
   commit("SET_LOADING", true);
-  const response = await fetch(`https://api.rawg.io/api/games`);
-  if (response) {
-    const data = await response.json();
+  const response = await fetch(
+    `https://api.rawg.io/api/games?page_size=40&page=${number}`
+  );
+  if (response.status == 200) {
+    const { results: data } = await response.json(); //saco results y lo llamo data
+    console.log(data);
     commit("SET_GAMES_DATA", data);
     commit("SET_LOADING", false);
+    dispatch("getGamesToPlay");
   }
+};
+
+export const getGamesToPlay = ({ state, commit }) => {
+  let games = [];
+  for (let i = 0; i < 2; ) {
+    let num = Math.floor(Math.random() * 40);
+    let obj = {
+      id: state.gamesData[num].id,
+      score: state.gamesData[num].rating,
+      image: state.gamesData[num].background_image,
+      name: state.gamesData[num].name,
+      genre: state.gamesData[num].genres[0].name,
+      released: state.gamesData[num].released,
+      higher: false,
+      lower: false,
+    };
+    games.push(obj);
+    i++;
+  }
+  commit("SET_GAMES_TO_PLAY", games);
 };
 
 export const getAnimeData = async ({ commit }) => {

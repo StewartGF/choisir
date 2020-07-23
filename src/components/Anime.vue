@@ -28,7 +28,7 @@
             <div v-for="anime in animeData" :key="anime.enName" class>
               <div
                 :id="anime.id"
-                :class="[ anime.selected ? 'border-yellow-500 border-4 ' : 'border-none' ,anime.higher ? 'bg-green-500 text-white' : 'bg-white' , anime.lower ? 'bg-red-500 text-white' : 'bg-white']"
+                :class="[ anime.higher ? 'bg-green-500 text-white' : 'bg-white' , anime.lower ? 'bg-red-500 text-white' : 'bg-white']"
                 class="group relative border-2 hover:border-4 hover:border-blue-700 p-2 w-full rounded overflow-hidden h-auto shadow-lg transition ease-out duration-500"
                 @click="handleSelection(anime)"
               >
@@ -89,7 +89,6 @@ export default {
   methods: {
     handleSelection(anime) {
       if (!this.flagScore) {
-        anime.selected = true;
         let ordenRanking = [];
         if (
           this.$store.state.animeData[0].score >
