@@ -25,7 +25,7 @@
         <div v-else class="relative">
           <span class="float-left top-0 my-4 font-black">Puntuación: {{puntuacionAnime}}</span>
           <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
-            <div v-for="anime in animeData" :key="anime.enName" class>
+            <div v-for="anime in animesToPlay" :key="anime.id+1" class>
               <div
                 :id="anime.id"
                 :class="[ anime.higher ? 'bg-green-500 text-white' : 'bg-white' , anime.lower ? 'bg-red-500 text-white' : 'bg-white']"
@@ -73,15 +73,17 @@ import Navbar from "@/components/Navbar.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import { mapState } from "vuex";
 export default {
-  data: function() {
+  data: function () {
     return {
       isFirstEntry: true,
       showScore: false,
-      flagScore: false
+      flagScore: false,
+      counting: 0,
+      doReload: false,
     };
   },
   computed: {
-    ...mapState(["animeData", "isLoading", "puntuacionAnime"]) // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
+    ...mapState(["animesToPlay", "isLoading", "puntuacionAnime"]), // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
   },
   mounted() {
     this.$store.dispatch("getAnimeData");
@@ -91,14 +93,14 @@ export default {
       if (!this.flagScore) {
         let ordenRanking = [];
         if (
-          this.$store.state.animeData[0].score >
-          this.$store.state.animeData[1].score
+          this.$store.state.animesToPlay[0].score >
+          this.$store.state.animesToPlay[1].score
         ) {
-          ordenRanking.push(this.$store.state.animeData[0]);
-          ordenRanking.push(this.$store.state.animeData[1]);
+          ordenRanking.push(this.$store.state.animesToPlay[0]);
+          ordenRanking.push(this.$store.state.animesToPlay[1]);
         } else {
-          ordenRanking.push(this.$store.state.animeData[1]);
-          ordenRanking.push(this.$store.state.animeData[0]);
+          ordenRanking.push(this.$store.state.animesToPlay[1]);
+          ordenRanking.push(this.$store.state.animesToPlay[0]);
         }
         ordenRanking[0].higher = true;
         ordenRanking[1].lower = true;
@@ -113,15 +115,27 @@ export default {
       }
     },
     handleNext() {
-      this.$store.dispatch("getAnimeData");
-      this.showScore = !this.showScore;
-      this.flagScore = false;
-    }
+      if (this.$store.state.puntuacionAnime == this.counting + 5) {
+        this.counting = this.$store.state.puntuacionAnime;
+        this.doReload = true;
+      }
+
+      if (this.doReload) {
+        this.$store.dispatch("getAnimeData");
+        this.showScore = !this.showScore;
+        this.flagScore = false;
+        this.doReload = false;
+      } else {
+        this.$store.dispatch("getAnimesToPlay");
+        this.showScore = !this.showScore;
+        this.flagScore = false;
+      }
+    },
   },
   components: {
     Navbar,
-    LoadingSpinner
-  }
+    LoadingSpinner,
+  },
 };
 </script>
 

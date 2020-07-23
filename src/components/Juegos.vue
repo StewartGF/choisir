@@ -70,15 +70,17 @@ import Navbar from "@/components/Navbar.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import { mapState } from "vuex";
 export default {
-  data: function() {
+  data: function () {
     return {
       isFirstEntry: true,
       showScore: false,
-      flagScore: false
+      flagScore: false,
+      counting: 0,
+      doReload: false,
     };
   },
   computed: {
-    ...mapState(["gameData", "isLoading", "gamesToPlay", "puntuacionGames"]) // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
+    ...mapState(["gameData", "isLoading", "gamesToPlay", "puntuacionGames"]), // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
   },
   mounted() {
     this.$store.dispatch("getGamesData");
@@ -109,15 +111,27 @@ export default {
       }
     },
     handleNext() {
-      this.$store.dispatch("getGamesToPlay");
-      this.showScore = !this.showScore;
-      this.flagScore = false;
-    }
+      if (this.$store.state.puntuacionGames == this.counting + 10) {
+        this.counting = this.$store.state.puntuacionGames;
+        this.doReload = true;
+      }
+
+      if (this.doReload) {
+        this.$store.dispatch("getGamesData");
+        this.showScore = !this.showScore;
+        this.flagScore = false;
+        this.doReload = false;
+      } else {
+        this.$store.dispatch("getGamesToPlay");
+        this.showScore = !this.showScore;
+        this.flagScore = false;
+      }
+    },
   },
   components: {
     Navbar,
-    LoadingSpinner
-  }
+    LoadingSpinner,
+  },
 };
 </script>
 

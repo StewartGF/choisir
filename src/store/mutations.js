@@ -10,6 +10,9 @@ export const SET_GAMES_TO_PLAY = (state, payload) => {
 export const SET_ANIME_DATA = (state, payload) => {
   state.animeData = payload;
 };
+export const SET_ANIMES_TO_PLAY = (state, payload) => {
+  state.animesToPlay = payload;
+};
 export const SET_SERIES_DATA = (state, payload) => {
   state.seriesData = payload;
 };

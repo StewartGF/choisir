@@ -6,7 +6,6 @@ export const getGamesData = async ({ commit, dispatch }) => {
   );
   if (response.status == 200) {
     const { results: data } = await response.json(); //saco results y lo llamo data
-    console.log(data);
     commit("SET_GAMES_DATA", data);
     commit("SET_LOADING", false);
     dispatch("getGamesToPlay");
@@ -15,8 +14,15 @@ export const getGamesData = async ({ commit, dispatch }) => {
 
 export const getGamesToPlay = ({ state, commit }) => {
   let games = [];
+  let tempId = 0;
   for (let i = 0; i < 2; ) {
     let num = Math.floor(Math.random() * 40);
+    if (tempId != 0) {
+      if (tempId == state.gamesData[num].id) {
+        continue;
+      }
+    }
+    tempId = state.gamesData[num].id;
     let obj = {
       id: state.gamesData[num].id,
       score: state.gamesData[num].rating,
@@ -27,51 +33,67 @@ export const getGamesToPlay = ({ state, commit }) => {
       higher: false,
       lower: false,
     };
-    games.push(obj);
-    i++;
+    if (obj.score != 0) {
+      games.push(obj);
+      i++;
+    }
   }
   commit("SET_GAMES_TO_PLAY", games);
 };
 
-export const getAnimeData = async ({ commit }) => {
-  let payload = [];
+export const getAnimeData = async ({ dispatch, commit }) => {
   commit("SET_LOADING", true);
+  let number = Math.floor(Math.random() * 100) + 1;
+  const response = await fetch(
+    `https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=${number}`
+  );
+  if (response.status == 200) {
+    const { data } = await response.json();
+    commit("SET_ANIME_DATA", data);
+    commit("SET_LOADING", false);
+    dispatch("getAnimesToPlay");
+  }
+};
+
+export const getAnimesToPlay = ({ state, commit }) => {
+  let animes = [];
+  let tempId = 0;
+
   for (let i = 0; i < 2; ) {
-    let number = Math.floor(Math.random() * 12062) + 1;
-    const response = await fetch(
-      `https://kitsu.io/api/edge/anime?page[limit]=1&page[offset]=${number}`
-    );
-    if (response.status == 200) {
-      const { data } = await response.json();
-      const obj = {
-        id: data[0].id,
-        enName: data[0].attributes.titles.en_jp,
-        jpName: data[0].attributes.titles.ja_jp,
-        imageOriginal: data[0].attributes.posterImage.original,
-        imageLarge: data[0].attributes.posterImage.large,
-        score: data[0].attributes.averageRating,
-        startDate: data[0].attributes.startDate,
-        status: data[0].attributes.status,
-        showType: data[0].attributes.showType,
-        episodeCount: data[0].attributes.episodeCount,
-        higher: false,
-        lower: false,
-        selected: false,
-      };
-      if (obj.score != null) {
-        if (obj.showType == "TV") {
-          if (obj.enName != undefined) {
-            if (obj.jpName != undefined) {
-              i++;
-              payload.push(obj);
-            }
+    let number = Math.floor(Math.random() * 20);
+    if (tempId != 0) {
+      if (tempId == state.animeData[number].id) {
+        continue;
+      }
+    }
+    tempId = state.animeData[number].id;
+    const obj = {
+      id: state.animeData[number].id,
+      enName: state.animeData[number].attributes.titles.en_jp,
+      jpName: state.animeData[number].attributes.titles.ja_jp,
+      imageOriginal: state.animeData[number].attributes.posterImage.original,
+      imageLarge: state.animeData[number].attributes.posterImage.large,
+      score: state.animeData[number].attributes.averageRating,
+      startDate: state.animeData[number].attributes.startDate,
+      status: state.animeData[number].attributes.status,
+      showType: state.animeData[number].attributes.showType,
+      episodeCount: state.animeData[number].attributes.episodeCount,
+      higher: false,
+      lower: false,
+      selected: false,
+    };
+    if (obj.score != null) {
+      if (obj.showType == "TV") {
+        if (obj.enName != undefined) {
+          if (obj.jpName != undefined) {
+            i++;
+            animes.push(obj);
           }
         }
       }
     }
   }
-  commit("SET_ANIME_DATA", payload);
-  commit("SET_LOADING", false);
+  commit("SET_ANIMES_TO_PLAY", animes);
 };
 
 export const getSeries = async ({ commit }) => {
@@ -82,7 +104,6 @@ export const getSeries = async ({ commit }) => {
     const response = await fetch(
       `http://api.tvmaze.com/search/shows?q=${letter}`
     );
-    console.log(response);
     if (response) {
       const dataLength = response.length;
       let index = Math.floor(Math.random() * dataLength) + 0;
