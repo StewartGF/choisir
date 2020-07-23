@@ -1,5 +1,5 @@
 export const getGamesData = async ({ commit, dispatch }) => {
-  let number = Math.floor(Math.random() * 10) + 1;
+  let number = parseInt(Math.floor(Math.random() * 30) + 1);
   commit("SET_LOADING", true);
   const response = await fetch(
     `https://api.rawg.io/api/games?page_size=40&page=${number}`
@@ -16,20 +16,20 @@ export const getGamesToPlay = ({ state, commit }) => {
   let games = [];
   let tempId = 0;
   for (let i = 0; i < 2; ) {
-    let num = Math.floor(Math.random() * 40);
+    let number = parseInt(Math.floor(Math.random() * state.gamesData.length));
     if (tempId != 0) {
-      if (tempId == state.gamesData[num].id) {
+      if (tempId == state.gamesData[number].id) {
         continue;
       }
     }
-    tempId = state.gamesData[num].id;
+    tempId = state.gamesData[number].id;
     let obj = {
-      id: state.gamesData[num].id,
-      score: state.gamesData[num].rating,
-      image: state.gamesData[num].background_image,
-      name: state.gamesData[num].name,
-      genre: state.gamesData[num].genres[0].name,
-      released: state.gamesData[num].released,
+      id: state.gamesData[number].id,
+      score: state.gamesData[number].rating,
+      image: state.gamesData[number].background_image,
+      name: state.gamesData[number].name,
+      genre: state.gamesData[number].genres[0].name,
+      released: state.gamesData[number].released,
       higher: false,
       lower: false,
     };
@@ -43,7 +43,8 @@ export const getGamesToPlay = ({ state, commit }) => {
 
 export const getAnimeData = async ({ dispatch, commit }) => {
   commit("SET_LOADING", true);
-  let number = Math.floor(Math.random() * 100) + 1;
+  let number = parseInt(Math.floor(Math.random() * 100) + 1);
+  console.log("llamada a offset", number);
   const response = await fetch(
     `https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=${number}`
   );
@@ -60,7 +61,8 @@ export const getAnimesToPlay = ({ state, commit }) => {
   let tempId = 0;
 
   for (let i = 0; i < 2; ) {
-    let number = Math.floor(Math.random() * 20);
+    let number = Math.floor(parseInt(Math.random() * state.animeData.length));
+    console.log("number", number, "vuelta", i);
     if (tempId != 0) {
       if (tempId == state.animeData[number].id) {
         continue;
@@ -106,7 +108,7 @@ export const getSeries = async ({ commit }) => {
     );
     if (response) {
       const dataLength = response.length;
-      let index = Math.floor(Math.random() * dataLength) + 0;
+      let index = parseInt(Math.floor(Math.random() * dataLength) + 0);
       const data = await response.json();
       const obj = {
         name: data[index].show.name,

@@ -40,11 +40,11 @@ Qué tan buenas primeras impresiones tienes?
 
 - [x] Completar vista Juegos
 
-* [ ] Mejorar rapidez vista anime, reduciendo la cantidad de llamadas y aumentando los que se traen con una
+* [x] Mejorar rapidez vista anime, reduciendo la cantidad de llamadas y aumentando los que se traen con una
 
 - [ ] Agregar un sistema de vidas, cada 10, ganas otra, perder te quita media vida.
 
-- [ ] Agregar un sistema de Ranking, Firebase probablemente ❔
+- [ ] Agregar un sistema de Ranking, Firebase probablemente ?
 
 - [ ] Completar vista Series
 
