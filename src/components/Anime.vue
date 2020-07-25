@@ -22,8 +22,16 @@
         <div v-if="isLoading" class="container mt-16">
           <loading-spinner />
         </div>
+        <div v-else-if="this.$store.getters.getLifes==0">
+          <div class="text-lg">Perdiste:(</div>
+          <div class="text-lg">pero intentalo de nuevo</div>
+          <button
+            class="border text-white bg-blue-500 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
+            @click="resetInstance"
+          >Jugar de nuevo</button>
+        </div>
         <div v-else class="relative">
-          <span class="float-left top-0 my-4 font-black">Puntuación: {{puntuacionAnime}}</span>
+          <status />
           <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
             <div v-for="anime in animesToPlay" :key="anime.id+1" class>
               <div
@@ -57,12 +65,12 @@
               </div>
             </div>
           </div>
+          <button
+            class="border text-white bg-blue-500 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
+            @click="handleNext"
+            v-if="showScore"
+          >Siguiente</button>
         </div>
-        <button
-          class="border text-white bg-blue-500 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
-          @click="handleNext"
-          v-if="showScore"
-        >Siguiente</button>
       </div>
     </div>
   </div>
@@ -71,6 +79,7 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
+import Status from "./Status.vue";
 import { mapState } from "vuex";
 export default {
   data: function () {
@@ -83,7 +92,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["animesToPlay", "isLoading", "puntuacionAnime"]), // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
+    ...mapState(["animesToPlay", "isLoading", "puntuacionAnime", "lifes"]), // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
   },
   mounted() {
     this.$store.dispatch("getAnimeData");
@@ -104,11 +113,14 @@ export default {
         }
         ordenRanking[0].higher = true;
         ordenRanking[1].lower = true;
-        this.showScore = !this.showScore;
 
         if (anime.id == ordenRanking[0].id) {
           this.$store.state.puntuacionAnime++;
+        } else {
+          this.$store.state.lifes.pop();
         }
+        this.showScore = !this.showScore;
+
         this.flagScore = true; // para evitar bug de multiples clicks correctos
       } else {
         return;
@@ -131,10 +143,19 @@ export default {
         this.flagScore = false;
       }
     },
+    resetInstance() {
+      this.$store.state.puntuacionAnime = 0;
+      this.isFirstEntry = true;
+      this.$store.state.lifes = ["♥", "♥", "♥", "♥", "♥"];
+      this.$store.dispatch("getAnimesToPlay");
+      this.showScore = !this.showScore;
+      this.flagScore = false;
+    },
   },
   components: {
     Navbar,
     LoadingSpinner,
+    Status,
   },
 };
 </script>

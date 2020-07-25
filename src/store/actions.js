@@ -17,12 +17,6 @@ export const getGamesToPlay = ({ state, commit }) => {
   let tempId = 0;
   for (let i = 0; i < 2; ) {
     let number = parseInt(Math.floor(Math.random() * state.gamesData.length));
-    if (tempId != 0) {
-      if (tempId == state.gamesData[number].id) {
-        continue;
-      }
-    }
-    tempId = state.gamesData[number].id;
     let obj = {
       id: state.gamesData[number].id,
       score: state.gamesData[number].rating,
@@ -33,9 +27,12 @@ export const getGamesToPlay = ({ state, commit }) => {
       higher: false,
       lower: false,
     };
-    if (obj.score != 0) {
-      games.push(obj);
-      i++;
+    if (tempId != obj.id) {
+      if (obj.score != 0) {
+        tempId = obj.id;
+        games.push(obj);
+        i++;
+      }
     }
   }
   commit("SET_GAMES_TO_PLAY", games);
@@ -43,7 +40,7 @@ export const getGamesToPlay = ({ state, commit }) => {
 
 export const getAnimeData = async ({ dispatch, commit }) => {
   commit("SET_LOADING", true);
-  let number = parseInt(Math.floor(Math.random() * 100) + 1);
+  let number = parseInt(Math.floor(Math.random() * 300) + 1);
   console.log("llamada a offset", number);
   const response = await fetch(
     `https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=${number}`
@@ -58,17 +55,10 @@ export const getAnimeData = async ({ dispatch, commit }) => {
 
 export const getAnimesToPlay = ({ state, commit }) => {
   let animes = [];
-  let tempId = 0;
-
+  let temp = 0;
   for (let i = 0; i < 2; ) {
     let number = Math.floor(parseInt(Math.random() * state.animeData.length));
     console.log("number", number, "vuelta", i);
-    if (tempId != 0) {
-      if (tempId == state.animeData[number].id) {
-        continue;
-      }
-    }
-    tempId = state.animeData[number].id;
     const obj = {
       id: state.animeData[number].id,
       enName: state.animeData[number].attributes.titles.en_jp,
@@ -84,12 +74,16 @@ export const getAnimesToPlay = ({ state, commit }) => {
       lower: false,
       selected: false,
     };
-    if (obj.score != null) {
-      if (obj.showType == "TV") {
-        if (obj.enName != undefined) {
-          if (obj.jpName != undefined) {
-            i++;
-            animes.push(obj);
+
+    if (temp != obj.id) {
+      if (obj.score != null) {
+        if (obj.showType == "TV") {
+          if (obj.enName != undefined) {
+            if (obj.jpName != undefined) {
+              temp = obj.id;
+              i++;
+              animes.push(obj);
+            }
           }
         }
       }
