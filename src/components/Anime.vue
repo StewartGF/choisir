@@ -22,13 +22,21 @@
         <div v-if="isLoading" class="container mt-16">
           <loading-spinner />
         </div>
+        <div v-else-if="this.$store.getters.getLifes==0">
+          <div class="text-lg">Perdiste:(</div>
+          <div class="text-lg">pero intentalo de nuevo</div>
+          <button
+            class="border text-white bg-blue-500 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
+            @click="resetInstance"
+          >Jugar de nuevo</button>
+        </div>
         <div v-else class="relative">
-          <span class="float-left top-0 my-4 font-black">Puntuación: {{puntuacionAnime}}</span>
+          <status />
           <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
-            <div v-for="anime in animeData" :key="anime.enName" class>
+            <div v-for="anime in animesToPlay" :key="anime.id+1" class>
               <div
                 :id="anime.id"
-                :class="[ anime.selected ? 'border-yellow-500 border-4 ' : 'border-none' ,anime.higher ? 'bg-green-500 text-white' : 'bg-white' , anime.lower ? 'bg-red-500 text-white' : 'bg-white']"
+                :class="[ anime.higher ? 'bg-green-500 text-white' : 'bg-white' , anime.lower ? 'bg-red-500 text-white' : 'bg-white']"
                 class="group relative border-2 hover:border-4 hover:border-blue-700 p-2 w-full rounded overflow-hidden h-auto shadow-lg transition ease-out duration-500"
                 @click="handleSelection(anime)"
               >
@@ -57,12 +65,12 @@
               </div>
             </div>
           </div>
+          <button
+            class="border text-white bg-blue-500 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
+            @click="handleNext"
+            v-if="showScore"
+          >Siguiente</button>
         </div>
-        <button
-          class="border text-white bg-blue-500 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
-          @click="handleNext"
-          v-if="showScore"
-        >Siguiente</button>
       </div>
     </div>
   </div>
@@ -71,17 +79,20 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
+import Status from "./Status.vue";
 import { mapState } from "vuex";
 export default {
-  data: function() {
+  data: function () {
     return {
       isFirstEntry: true,
       showScore: false,
-      flagScore: false
+      flagScore: false,
+      counting: 0,
+      doReload: false,
     };
   },
   computed: {
-    ...mapState(["animeData", "isLoading", "puntuacionAnime"]) // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
+    ...mapState(["animesToPlay", "isLoading", "puntuacionAnime", "lifes"]), // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
   },
   mounted() {
     this.$store.dispatch("getAnimeData");
@@ -89,40 +100,63 @@ export default {
   methods: {
     handleSelection(anime) {
       if (!this.flagScore) {
-        anime.selected = true;
         let ordenRanking = [];
         if (
-          this.$store.state.animeData[0].score >
-          this.$store.state.animeData[1].score
+          this.$store.state.animesToPlay[0].score >
+          this.$store.state.animesToPlay[1].score
         ) {
-          ordenRanking.push(this.$store.state.animeData[0]);
-          ordenRanking.push(this.$store.state.animeData[1]);
+          ordenRanking.push(this.$store.state.animesToPlay[0]);
+          ordenRanking.push(this.$store.state.animesToPlay[1]);
         } else {
-          ordenRanking.push(this.$store.state.animeData[1]);
-          ordenRanking.push(this.$store.state.animeData[0]);
+          ordenRanking.push(this.$store.state.animesToPlay[1]);
+          ordenRanking.push(this.$store.state.animesToPlay[0]);
         }
         ordenRanking[0].higher = true;
         ordenRanking[1].lower = true;
-        this.showScore = !this.showScore;
 
         if (anime.id == ordenRanking[0].id) {
           this.$store.state.puntuacionAnime++;
+        } else {
+          this.$store.state.lifes.pop();
         }
+        this.showScore = !this.showScore;
+
         this.flagScore = true; // para evitar bug de multiples clicks correctos
       } else {
         return;
       }
     },
     handleNext() {
-      this.$store.dispatch("getAnimeData");
+      if (this.$store.state.puntuacionAnime == this.counting + 5) {
+        this.counting = this.$store.state.puntuacionAnime;
+        this.doReload = true;
+      }
+
+      if (this.doReload) {
+        this.$store.dispatch("getAnimeData");
+        this.showScore = !this.showScore;
+        this.flagScore = false;
+        this.doReload = false;
+      } else {
+        this.$store.dispatch("getAnimesToPlay");
+        this.showScore = !this.showScore;
+        this.flagScore = false;
+      }
+    },
+    resetInstance() {
+      this.$store.state.puntuacionAnime = 0;
+      this.isFirstEntry = true;
+      this.$store.state.lifes = ["♥", "♥", "♥", "♥", "♥"];
+      this.$store.dispatch("getAnimesToPlay");
       this.showScore = !this.showScore;
       this.flagScore = false;
-    }
+    },
   },
   components: {
     Navbar,
-    LoadingSpinner
-  }
+    LoadingSpinner,
+    Status,
+  },
 };
 </script>
 
