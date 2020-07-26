@@ -5,7 +5,7 @@
       class="container mx-auto text-center relative text-black h-full align-middle px-8 pb-8 pt-2"
     >
       <div v-if="isFirstEntry" class="pt-16">
-        <span class="font-black text-4xl">Versión Juegos 🎮 !</span>
+        <span class="font-black text-4xl">Versión Juegos 🎮!</span>
         <span class="block mt-6 font-bold text-2xl">Repasemos...</span>
         <span
           class="block text-lg tracking-tighter text-gray-700"
