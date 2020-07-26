@@ -2,7 +2,9 @@
   <div>
     <nav class="flex items-center justify-between flex-wrap bg-white p-4 shadow-md">
       <router-link to="/" class="flex items-center flex-shrink-0 text-xl text-black mr-6">
-        <span class="text-xl lg:text-2xl tracking-wide font-black text-gray-700">Choisir</span>
+        <span
+          class="text-xl lg:text-2xl tracking-wide font-black text-gray-700 border-r-2 pr-4 md:pr-8"
+        >🎴Choisir</span>
       </router-link>
       <div class="block lg:hidden">
         <button
@@ -21,22 +23,22 @@
         <div class="text-sm lg:flex-grow lg:flex lg:items-center lg:justify-end">
           <router-link
             to="/"
-            :class="currentRouteName == '/' ? 'text-teal-500 font-extrabold' : 'text-gray-600  font-semibold'"
+            :class="currentRoutePath == '/' ? 'text-teal-500 font-extrabold' : 'text-gray-600  font-semibold'"
             class="block align-middle mt-4 lg:px-4 tracking-widest lg:inline-block lg:mt-0 hover:text-teal-500 mr-4"
           >Inicio</router-link>
           <router-link
             to="/anime"
-            :class="currentRouteName == '/anime' ? 'text-teal-500 font-black' : 'text-gray-600  font-semibold'"
+            :class="currentRoutePath == '/anime' ? 'text-teal-500 font-black' : 'text-gray-600  font-semibold'"
             class="block mt-4 lg:px-4 tracking-widest lg:inline-block lg:mt-0 hover:text-teal-500 mr-4"
           >Anime</router-link>
           <router-link
             to="/series"
-            :class="currentRouteName == '/series' ? 'text-teal-500 font-black' : 'text-gray-600  font-semibold'"
+            :class="currentRoutePath == '/series' ? 'text-teal-500 font-black' : 'text-gray-600  font-semibold'"
             class="block mt-4 lg:px-4 tracking-widest lg:inline-block lg:mt-0 hover:text-teal-500 mr-4"
           >Series</router-link>
           <router-link
             to="/juegos"
-            :class="currentRouteName == '/juegos' ? 'text-teal-500 font-black' : 'text-gray-600  font-semibold'"
+            :class="currentRoutePath == '/juegos' ? 'text-teal-500 font-black' : 'text-gray-600  font-semibold'"
             class="block mt-4 lg:px-4 tracking-widest lg:inline-block lg:mt-0 hover:text-teal-500 mr-4"
           >Juegos</router-link>
           <a
@@ -80,9 +82,11 @@ export default {
     randomEmoji: function () {
       return this.emojis[Math.floor(Math.random() * this.emojis.length)];
     },
-    currentRouteName() {
-      console.log(this.$route.path);
+    currentRoutePath() {
       return this.$route.path;
+    },
+    currentRouteName() {
+      return this.$route.name;
     },
   },
   methods: {},

@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2">
+  <div class="grid grid-cols-2 my-4">
     <div class="font-black flex justify-end">Puntuación:</div>
     <div class="font-black flex m-auto">{{puntuacion}}</div>
     <div class="font-black flex justify-end">Vidas:</div>
