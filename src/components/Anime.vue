@@ -51,9 +51,9 @@
                   :src="anime.imageSmall ? anime.imageSmall : anime.imageLarge ? anime.imageLarge : anime.imageOriginal"
                   alt="Sunset in the mountains"
                 />
-                <div class="px-1 py-1 lg:px-6 lg:py-4">
+                <div class="px-1 py-0 lg:px-6 lg:py-4">
                   <div
-                    class="font-bold text-xl mb-2 w-full truncate lg:break-words"
+                    class="font-bold text-xl mb-0 md:mb-2 w-full truncate lg:break-words"
                   >{{ anime.enName}}</div>
                   <p class="text-gray-700 text-base font-black">
                     <span
