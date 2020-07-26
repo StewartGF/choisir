@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-2">
     <div class="font-black flex justify-end">Puntuación:</div>
-    <div class="font-black flex m-auto">{{puntuacionAnime}}</div>
+    <div class="font-black flex m-auto">{{puntuacion}}</div>
     <div class="font-black flex justify-end">Vidas:</div>
     <div class="flex flex-wrap m-auto">
       <img
@@ -22,6 +22,7 @@ export default {
   computed: {
     ...mapState(["lifes", "puntuacionAnime"]),
   },
+  props: ["puntuacion"],
 };
 </script>
 
