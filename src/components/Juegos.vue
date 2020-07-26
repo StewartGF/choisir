@@ -4,7 +4,7 @@
     <div
       class="container mx-auto text-center relative text-black h-full align-middle px-8 pb-8 pt-2"
     >
-      <div v-if="isFirstEntry">
+      <div v-if="isFirstEntry" class="pt-16">
         <span class="font-black text-4xl">Versión Juegos 🎮 !</span>
         <span class="block mt-6 font-bold text-2xl">Repasemos...</span>
         <span
@@ -14,7 +14,7 @@
           class="block mt-6 text-lg tracking-tighter text-gray-700"
         >Si estás listo, comencemos 🤓</span>
         <button
-          class="border text-white bg-blue-500 rounded-full mt-32 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
+          class="border text-white bg-red-50 rounded-full mt-32 px-8 md:px-12 p-4 font-black hover:bg-red-20 hover:text-white tracking-tigh focus:outline-none"
           @click="isFirstEntry = !isFirstEntry"
         >OK !</button>
       </div>
@@ -22,14 +22,23 @@
         <div v-if="isLoading" class="container mt-16">
           <loading-spinner />
         </div>
+        <div v-else-if="lifes==0" class="grid grid-cols-1 w-full pt-12 gap-4">
+          <div class="text-lg font-black">oh no.... Perdiste:(</div>
+          <img :src="selectedImage" alt=":c" width="400" height="400" class="m-auto" />
+          <div class="text-sm mt-12">Inténtalo de nuevo 👇</div>
+          <button
+            class="border text-white w-3/2 mx-auto bg-red-50 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tigh focus:outline-none"
+            @click="resetInstance"
+          >Jugar de nuevo</button>
+        </div>
         <div v-else class="relative">
-          <span class="float-left top-0 my-4 font-black">Puntuación: {{puntuacionGames}}</span>
+          <status :puntuacion="puntuacionGames" />
           <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
-            <div v-for="game in gamesToPlay" :key="game.id" class>
+            <div v-for="game in gamesToPlay" :key="game.id" class="shadow-xl">
               <div
                 :id="game.id"
                 :class="[game.higher ? 'bg-green-500 text-white' : 'bg-white' , game.lower ? 'bg-red-500 text-white' : 'bg-white']"
-                class="group relative border-2 hover:border-4 hover:border-blue-700 p-2 w-full rounded overflow-hidden h-auto shadow-lg transition ease-out duration-500"
+                class="group relative border-2 hover:border-4 hover:border-teal-50 p-2 w-full rounded overflow-hidden h-auto shadow-lg transition ease-out duration-500"
                 @click="handleSelection(game)"
               >
                 <span
@@ -54,12 +63,12 @@
               </div>
             </div>
           </div>
+          <button
+            class="border text-white bg-red-50 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-red-20 hover:text-white tracking-tigh focus:outline-none"
+            @click="handleNext"
+            v-if="showScore"
+          >Siguiente</button>
         </div>
-        <button
-          class="border text-white bg-blue-500 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
-          @click="handleNext"
-          v-if="showScore"
-        >Siguiente</button>
       </div>
     </div>
   </div>
@@ -68,6 +77,7 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
+import Status from "./Status.vue";
 import { mapState } from "vuex";
 export default {
   data: function () {
@@ -77,10 +87,28 @@ export default {
       flagScore: false,
       counting: 0,
       doReload: false,
+      images: [
+        "https://media1.giphy.com/media/joxThEgTJuSBO/200.gif",
+        "https://24.media.tumblr.com/f0f30f5c19c05f6dac880bd04cf6474d/tumblr_mnqi7wp3QG1st1qmso1_500.gif",
+        "https://66.media.tumblr.com/00fde2ac678bd0029828dd5c3137fda6/tumblr_pydh7piLSr1xscx7go1_500.gif",
+        "https://media1.tenor.com/images/6b85c056bac3c0f852e509dc447ed1f8/tenor.gif?itemid=8028477",
+        "https://i.gifer.com/2kl1.gif",
+        "https://media1.tenor.com/images/8a7dc66315e99c4332d76a02feedae58/tenor.gif?itemid=13443909",
+        "https://pa1.narvii.com/6889/af8a870f7167f836762bef0af49b617ec3a5140fr1-500-260_hq.gif",
+        "https://media1.tenor.com/images/f6a401f2a0973c59c838f035d271a56a/tenor.gif?itemid=12394354",
+        "https://media1.tenor.com/images/1bc416a26ff4381e645691b6e7c5212b/tenor.gif?itemid=12873427",
+      ],
+      selectedImage: null,
     };
   },
   computed: {
-    ...mapState(["gameData", "isLoading", "gamesToPlay", "puntuacionGames"]), // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
+    ...mapState([
+      "gameData",
+      "isLoading",
+      "gamesToPlay",
+      "puntuacionGames",
+      "lifes",
+    ]), // esto es más rapido que crear una función que devuelva el state en un return, don't know why tho🤷‍♂️
   },
   mounted() {
     this.$store.dispatch("getGamesData");
@@ -104,6 +132,8 @@ export default {
         this.showScore = !this.showScore;
         if (game.id == ordenRanking[0].id) {
           this.$store.state.puntuacionGames++;
+        } else {
+          this.$store.state.lifes.pop();
         }
         this.flagScore = true; // para evitar bug de multiples clicks correctos
       } else {
@@ -127,10 +157,27 @@ export default {
         this.flagScore = false;
       }
     },
+    resetInstance() {
+      this.$store.state.puntuacionGames = 0;
+      this.isFirstEntry = true;
+      this.$store.state.lifes = ["♥", "♥", "♥", "♥", "♥"];
+      this.$store.dispatch("getGamesToPlay");
+      this.showScore = !this.showScore;
+      this.flagScore = false;
+    },
   },
   components: {
     Navbar,
     LoadingSpinner,
+    Status,
+  },
+  beforeDestroy() {
+    this.$store.state.puntuacionGames = 0;
+    this.$store.state.lifes = ["♥", "♥", "♥", "♥", "♥"];
+  },
+  created() {
+    const idx = Math.floor(Math.random() * this.images.length);
+    this.selectedImage = this.images[idx];
   },
 };
 </script>

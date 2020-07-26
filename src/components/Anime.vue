@@ -14,7 +14,7 @@
           class="block mt-6 text-lg tracking-tighter text-gray-700"
         >Si estás listo, comencemos 🤓</span>
         <button
-          class="border text-white bg-blue-500 rounded-full mt-32 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
+          class="border text-white bg-red-50 rounded-full mt-32 px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tigh focus:outline-none"
           @click="isFirstEntry = !isFirstEntry"
         >OK !</button>
       </div>
@@ -22,22 +22,23 @@
         <div v-if="isLoading" class="container mt-16">
           <loading-spinner />
         </div>
-        <div v-else-if="this.$store.getters.getLifes==0">
-          <div class="text-lg">Perdiste:(</div>
-          <div class="text-lg">pero intentalo de nuevo</div>
+        <div v-else-if="lifes==0" class="grid grid-cols-1 w-full pt-12 gap-4">
+          <div class="text-lg font-black">oh no.... Perdiste:(</div>
+          <img :src="selectedImage" alt=":c" width="400" height="400" class="m-auto" />
+          <div class="text-sm mt-12">Inténtalo de nuevo 👇</div>
           <button
-            class="border text-white bg-blue-500 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
+            class="border text-white w-3/2 mx-auto bg-red-50 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tigh focus:outline-none"
             @click="resetInstance"
           >Jugar de nuevo</button>
         </div>
         <div v-else class="relative">
-          <status />
+          <status :puntuacion="puntuacionAnime" />
           <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
-            <div v-for="anime in animesToPlay" :key="anime.id+1" class>
+            <div v-for="anime in animesToPlay" :key="anime.id+1" class="shadow-xl">
               <div
                 :id="anime.id"
                 :class="[ anime.higher ? 'bg-green-500 text-white' : 'bg-white' , anime.lower ? 'bg-red-500 text-white' : 'bg-white']"
-                class="group relative border-2 hover:border-4 hover:border-blue-700 p-2 w-full rounded overflow-hidden h-auto shadow-lg transition ease-out duration-500"
+                class="group relative border-2 hover:border-4 hover:border-teal-50 p-2 w-full rounded overflow-hidden h-auto shadow-lg transition ease-out duration-500"
                 @click="handleSelection(anime)"
               >
                 <span
@@ -46,15 +47,15 @@
                 >⭐{{anime.score}}</span>
                 <img
                   loading="lazy"
-                  class="w-full h-32 lg:h-64 object-contain md:object-contain"
-                  :src="anime.imageLarge"
+                  class="w-full h-32 lg:h-64 object-contain md:object-contain duration-700"
+                  :src="anime.imageSmall ? anime.imageSmall : anime.imageLarge ? anime.imageLarge : anime.imageOriginal"
                   alt="Sunset in the mountains"
                 />
                 <div class="px-1 py-1 lg:px-6 lg:py-4">
                   <div
                     class="font-bold text-xl mb-2 w-full truncate lg:break-words"
                   >{{ anime.enName}}</div>
-                  <p class="text-gray-700 text-base font-medium">
+                  <p class="text-gray-700 text-base font-black">
                     <span
                       class="border group-hover:border-2 text-xs border-full bg-gray-400 px-2 rounded-full"
                     >{{anime.jpName}}</span>
@@ -66,7 +67,7 @@
             </div>
           </div>
           <button
-            class="border text-white bg-blue-500 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tigh focus:outline-none"
+            class="border text-white bg-red-50 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tigh focus:outline-none"
             @click="handleNext"
             v-if="showScore"
           >Siguiente</button>
@@ -89,6 +90,15 @@ export default {
       flagScore: false,
       counting: 0,
       doReload: false,
+      images: [
+        "https://media1.tenor.com/images/9a8399e7957c588732138a00ebf0998a/tenor.gif?itemid=15819739",
+        "https://media1.tenor.com/images/40f50caa699d4fd0eb3a22b202146cc7/tenor.gif?itemid=5575883",
+        "https://media1.tenor.com/images/4b29b985a1eaaa1274ed9c3d43d3a684/tenor.gif?itemid=14126077",
+        "https://media1.tenor.com/images/0a1b232ab53d45991d021e995fc58e31/tenor.gif?itemid=14126294",
+        "https://media1.tenor.com/images/2365198c1bdc692d6451e95edab472bf/tenor.gif?itemid=14397689",
+        "https://media1.tenor.com/images/5ab219fa808997aedcdea635b147a698/tenor.gif?itemid=14366312",
+      ],
+      selectedImage: null,
     };
   },
   computed: {
@@ -156,6 +166,10 @@ export default {
     Navbar,
     LoadingSpinner,
     Status,
+  },
+  created() {
+    const idx = Math.floor(Math.random() * this.images.length);
+    this.selectedImage = this.images[idx];
   },
 };
 </script>

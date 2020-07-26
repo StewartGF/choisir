@@ -12,7 +12,7 @@ Qué tan buenas primeras impresiones tienes?
 
 ## Framework CSS
 
-- Tailwind CSS
+- Tailwind CSS -> instalar con `vue add tailwind`
 
 ## APIs consumidas
 
@@ -44,11 +44,15 @@ Qué tan buenas primeras impresiones tienes?
 
 - [x] Agregar un sistema de vidas.
 
-- [ ] Agregar un sistema de Ranking, Firebase probablemente ?
+* [x] Terminar el ciclo de vida de mis componentes cuando se cambia de ruta con el navbar.
 
-- [ ] Completar vista Series
+- [x] Completar vista Series
 
-- [ ] Actualizar Readme
+- [x] Actualizar Readme
+
+- [x] Modificar estilo final
+
+- [ ] Agregar shields al readme
 
 - [ ] Deploy en Netlify :D
 

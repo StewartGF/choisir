@@ -16,3 +16,6 @@ export const SET_ANIMES_TO_PLAY = (state, payload) => {
 export const SET_SERIES_DATA = (state, payload) => {
   state.seriesData = payload;
 };
+export const SET_SERIES_TO_PLAY = (state, payload) => {
+  state.seriesToPlay = payload;
+};
