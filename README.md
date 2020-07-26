@@ -1,4 +1,8 @@
-![npm](https://img.shields.io/badge/VueJS-v2.6.11-brightgreen) ![npm](https://img.shields.io/badge/Vuex-v3.2.0-green) ![npm](https://img.shields.io/badge/VueRouter-v3.3.4-yellowgreen)
+![npm](https://img.shields.io/badge/TailwindCSS-v1.5.2-39C9C3) ![npm](https://img.shields.io/badge/VueJS-v2.6.11-brightgreen) ![npm](https://img.shields.io/badge/Vuex-v3.2.0-green) ![npm](https://img.shields.io/badge/VueRouter-v3.3.4-yellowgreen) ![npm](https://img.shields.io/badge/Kitsu.io-API-orange) ![npm](https://img.shields.io/badge/Rawg.io-API-black) ![npm](https://img.shields.io/badge/TVMaze.com-API-3C948B)
+
+# Deploy 🌐
+
+https://choisir-stewartgf.netlify.app/
 
 # Choisir 🤓
 
@@ -52,9 +56,9 @@ Qué tan buenas primeras impresiones tienes?
 
 - [x] Modificar estilo final
 
-- [ ] Agregar shields al readme
+- [x] Agregar shields al readme
 
-- [ ] Deploy en Netlify :D
+- [x] Deploy en Netlify :D
 
 ## Project setup
 
