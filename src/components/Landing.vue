@@ -13,15 +13,15 @@
           <span class="text-gray-700 font-bold text-xl tracking-tighter">Descúbrelo ahora 👀</span>
           <div class="container flex justify-around m-auto text-center mt-6 lg:mt-16">
             <router-link
-              class="border text-white bg-blue-500 rounded-full px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tight"
+              class="border text-white bg-red-50 rounded-full px-8 md:px-12 p-4 font-black hover:bg-red-20 transition ease-out duration-700 hover:text-white tracking-tight"
               to="/anime"
             >Anime</router-link>
             <router-link
-              class="border text-white bg-blue-500 rounded-full px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tight"
+              class="border text-white bg-red-50 rounded-full px-8 md:px-12 p-4 font-black hover:bg-red-20 transition ease-out duration-700 hover:text-white tracking-tight"
               to="/series"
             >Series</router-link>
             <router-link
-              class="border text-white bg-blue-500 rounded-full px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tight"
+              class="border text-white bg-red-50 rounded-full px-8 md:px-12 p-4 font-black hover:bg-red-20 transition ease-out duration-700 hover:text-white tracking-tight"
               to="/juegos"
             >Juegos</router-link>
           </div>
@@ -73,7 +73,7 @@
             <span class="block tracking-tighter text-gray-700 mt-4">Inténtalo !</span>
             <button
               @click="locationHref"
-              class="mt-12 border text-white bg-blue-500 rounded-full px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tight"
+              class="mt-12 border text-white bg-red-50 rounded-full px-8 md:px-12 p-4 duration-700 font-black hover:bg-red-20 hover:text-white tracking-tight"
             >Démosle</button>
           </div>
         </div>
@@ -94,7 +94,7 @@
                 <a href="https://kitsu.io/explore/anime" target="_blank">
                   <img
                     loading="lazy"
-                    class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border border-blue-500 object-contain"
+                    class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border-2 border-teal-50 object-contain"
                     src="@/assets/kitsu.png"
                     alt
                   />
@@ -104,7 +104,7 @@
                 <a href="https://rawg.io/" target="_blank">
                   <img
                     loading="lazy"
-                    class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border border-blue-500 object-contain"
+                    class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border-2 border-teal-50 object-contain"
                     src="@/assets/rawg.png"
                     alt
                   />
@@ -114,7 +114,7 @@
                 <a href="https://www.tvmazes.com/" target="_blank">
                   <img
                     loading="lazy"
-                    class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border border-blue-500 object-scale-down"
+                    class="rounded-full w-20 h-20 lg:w-32 lg:h-32 border-2 border-teal-50 object-scale-down"
                     src="@/assets/tvmazes.png"
                     alt
                   />
@@ -126,7 +126,7 @@
             >Entonces, ¿te tinca jugar ahora?</span>
             <button
               @click="locationHref"
-              class="mt-6 block border text-white bg-blue-500 rounded-full px-8 md:px-12 p-4 font-black hover:bg-blue-400 hover:text-white tracking-tight"
+              class="mt-6 block border text-white bg-red-50 rounded-full px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tight"
             >Jugar</button>
           </div>
           <div class="image-div order-first md:order-last">
@@ -142,13 +142,13 @@
 import Navbar from "@/components/Navbar.vue";
 export default {
   components: {
-    Navbar
+    Navbar,
   },
   methods: {
     locationHref() {
       location.href = "#firstblock";
-    }
-  }
+    },
+  },
 };
 </script>
 
