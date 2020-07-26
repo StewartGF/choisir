@@ -32,6 +32,8 @@ module.exports = {
         900: "#1a202c",
       },
       red: {
+        20: "#FF6E84",
+        50: "#FE405C",
         100: "#fff5f5",
         200: "#fed7d7",
         300: "#feb2b2",
@@ -76,6 +78,7 @@ module.exports = {
         900: "#22543d",
       },
       teal: {
+        50: "#1C899B",
         100: "#e6fffa",
         200: "#b2f5ea",
         300: "#81e6d9",
@@ -87,6 +90,7 @@ module.exports = {
         900: "#234e52",
       },
       blue: {
+        50: "#005ad6",
         100: "#ebf8ff",
         200: "#bee3f8",
         300: "#90cdf4",
@@ -708,6 +712,7 @@ module.exports = {
     textColor: ["responsive", "hover", "focus", "group-hover"],
     textOpacity: ["responsive", "hover", "focus", "group-hover"],
     textDecoration: ["responsive", "hover", "focus", "group-hover"],
+    transitionTimingFunction: ["responsive", "hover", "focus"],
     textTransform: ["responsive", "group-hover"],
     userSelect: ["responsive"],
     verticalAlign: ["responsive"],
