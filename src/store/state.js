@@ -4,6 +4,7 @@ export default {
   animeData: [],
   animesToPlay: [],
   seriesData: [],
+  seriesToPlay: [],
   lifes: ["♥", "♥", "♥", "♥", "♥"],
   puntuacionAnime: 0,
   puntuacionGames: 0,

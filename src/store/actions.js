@@ -41,7 +41,6 @@ export const getGamesToPlay = ({ state, commit }) => {
 export const getAnimeData = async ({ dispatch, commit }) => {
   commit("SET_LOADING", true);
   let number = parseInt(Math.floor(Math.random() * 300) + 1);
-  console.log("llamada a offset", number);
   const response = await fetch(
     `https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=${number}`
   );
@@ -58,13 +57,13 @@ export const getAnimesToPlay = ({ state, commit }) => {
   let temp = 0;
   for (let i = 0; i < 2; ) {
     let number = Math.floor(parseInt(Math.random() * state.animeData.length));
-    console.log("number", number, "vuelta", i);
     const obj = {
       id: state.animeData[number].id,
       enName: state.animeData[number].attributes.titles.en_jp,
       jpName: state.animeData[number].attributes.titles.ja_jp,
       imageOriginal: state.animeData[number].attributes.posterImage.original,
       imageLarge: state.animeData[number].attributes.posterImage.large,
+      imageSmall: state.animeData[number].attributes.posterImage.small,
       score: state.animeData[number].attributes.averageRating,
       startDate: state.animeData[number].attributes.startDate,
       status: state.animeData[number].attributes.status,
@@ -92,26 +91,41 @@ export const getAnimesToPlay = ({ state, commit }) => {
   commit("SET_ANIMES_TO_PLAY", animes);
 };
 
-export const getSeries = async ({ commit }) => {
-  let payload = [];
+export const getSeriesData = async ({ dispatch, commit }) => {
   commit("SET_LOADING", true);
-  for (let i = 0; i < 2; i++) {
-    let letter = String.fromCharCode(97 + Math.floor(Math.random() * 26));
-    const response = await fetch(
-      `http://api.tvmaze.com/search/shows?q=${letter}`
-    );
-    if (response) {
-      const dataLength = response.length;
-      let index = parseInt(Math.floor(Math.random() * dataLength) + 0);
-      const data = await response.json();
-      const obj = {
-        name: data[index].show.name,
-        image: data[index].show.image.original,
-        score: data[index].score,
-      };
-      payload.push(obj);
+  const response = await fetch(`http://api.tvmaze.com/shows`);
+  if (response) {
+    let data = await response.json();
+    commit("SET_SERIES_DATA", data);
+    commit("SET_LOADING", false);
+    dispatch("getSeriesToPlay");
+  }
+};
+
+export const getSeriesToPlay = ({ state, commit }) => {
+  let series = [];
+  let temp = 0;
+  for (let i = 0; i < 2; ) {
+    let number = Math.floor(parseInt(Math.random() * state.seriesData.length));
+    const obj = {
+      id: state.seriesData[number].id,
+      score: state.seriesData[number].rating.average,
+      image: state.seriesData[number].image.medium,
+      name: state.seriesData[number].name,
+      genres: state.seriesData[number].genres,
+      released: state.seriesData[number].premiered,
+      higher: false,
+      lower: false,
+    };
+    if (temp != obj.id) {
+      if (obj.score != null) {
+        if (obj.image != null) {
+          temp = obj.id;
+          series.push(obj);
+          i++;
+        }
+      }
     }
   }
-  commit("SET_SERIES_DATA", payload);
-  commit("SET_LOADING", false);
+  commit("SET_SERIES_TO_PLAY", series);
 };
