@@ -4,7 +4,7 @@
     <div
       class="container mx-auto text-center relative text-black h-full align-middle px-8 pb-8 pt-2"
     >
-      <div v-if="isFirstEntry" class="pt-16">
+      <div v-if="isFirstEntry" class="pt-4">
         <span class="font-black text-4xl">Versión Juegos 🎮!</span>
         <span class="block mt-6 font-bold text-2xl">Repasemos...</span>
         <span
@@ -14,7 +14,7 @@
           class="block mt-6 text-lg tracking-tighter text-gray-700"
         >Si estás listo, comencemos 🤓</span>
         <button
-          class="border text-white bg-red-50 rounded-full mt-32 px-8 md:px-12 p-4 font-black hover:bg-red-20 hover:text-white tracking-tigh focus:outline-none"
+          class="border text-white bg-red-50 rounded-full mt-24 px-8 md:px-12 p-4 font-black hover:bg-red-20 hover:text-white tracking-tigh focus:outline-none"
           @click="isFirstEntry = !isFirstEntry"
         >OK !</button>
       </div>
@@ -25,6 +25,7 @@
         <div v-else-if="lifes==0" class="grid grid-cols-1 w-full pt-12 gap-4">
           <div class="text-lg font-black">oh no.... Perdiste:(</div>
           <img :src="selectedImage" alt=":c" width="400" height="400" class="m-auto" />
+          <p class="text-xl font-black">Obtuviste {{puntuacionGames}} puntos</p>
           <div class="text-sm mt-12">Inténtalo de nuevo 👇</div>
           <button
             class="border text-white w-3/2 mx-auto bg-red-50 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tigh focus:outline-none"
@@ -34,31 +35,35 @@
         <div v-else class="relative">
           <status :puntuacion="puntuacionGames" />
           <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
-            <div v-for="game in gamesToPlay" :key="game.id" class="shadow-xl">
+            <div v-for="game in gamesToPlay" :key="game.id" class="shadow-xl rounded">
               <div
                 :id="game.id"
                 :class="[game.higher ? 'bg-green-500 text-white' : 'bg-white' , game.lower ? 'bg-red-500 text-white' : 'bg-white']"
-                class="group relative border-2 hover:border-4 hover:border-teal-50 p-2 w-full rounded overflow-hidden h-auto shadow-lg transition ease-out duration-500"
+                class="group relative border-2 border-transparent hover:border-2 hover:border-teal-50 p-2 w-full rounded overflow-hidden h-auto shadow-lg transition ease-out duration-500"
                 @click="handleSelection(game)"
               >
                 <span
-                  class="absolute font-bold text-lg top-0 right-0 mr-2 mt-2"
+                  class="absolute font-bold text-base md:text-md top-0 right-0 mr-2 mt-2"
                   v-if="showScore"
                 >⭐{{game.score}}</span>
-                <img
-                  loading="lazy"
-                  class="w-full p-2 h-32 lg:h-64 object-contain md:object-contain"
-                  :src="game.image"
-                  alt="Sunset in the mountains"
-                />
+                <div class="overflow-hidden w-2/3 m-auto">
+                  <img
+                    loading="lazy"
+                    class="w-full p-0 md:p-8 h-32 lg:h-64 object-contain duration-500 transform scale-100 group-hover:scale-125 md:group-hover:scale-110"
+                    :src="game.image"
+                    alt="imagen"
+                  />
+                </div>
                 <div class="px-1 py-1 lg:px-6 lg:py-4">
-                  <div class="font-bold text-xl mb-2 w-full truncate lg:break-words">{{ game.name}}</div>
-                  <p class="text-gray-700 text-base font-medium">
+                  <div
+                    class="font-bold text-xs md:text-lg mb-2 w-full truncate lg:break-words"
+                  >{{ game.name}}</div>
+                  <p class="text-gray-700 font-medium">
                     <span
-                      class="border group-hover:border-2 text-xs border-full bg-gray-400 px-2 rounded-full"
+                      class="border-2 text-xs border-full bg-gray-400 px-2 rounded-full"
                     >{{game.genre}}</span>
                   </p>
-                  <p class="text-base">Fecha de lanzamiento:{{game.released}}</p>
+                  <p class="text-base">Lanzamiento:{{game.released}}</p>
                 </div>
               </div>
             </div>

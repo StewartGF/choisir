@@ -81,8 +81,8 @@
           id="two-block-three"
           class="grid py-24 lg:mt-2 h-full grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 font-bold"
         >
-          <div class="self-center text-div w-full text-center lg:text-left px-12 lg:px-8">
-            <span class="block text-5xl font-bold tracking-tight">Información y Rankings</span>
+          <div class="self-center text-div w-full text-center lg:text-left px-8">
+            <span class="block text-4xl font-bold tracking-tight">Información y Rankings</span>
             <span
               class="inline-block mt-4 tracking-tighter text-gray-700"
             >Si te interesa saber más, por favor dirígete a las páginas web de Kitsu, Rawg y TVMazes para ver sus contenidos 🥰</span>
@@ -124,10 +124,12 @@
             <span
               class="block w-full mt-4 tracking-tighter text-gray-700"
             >Entonces, ¿te tinca jugar ahora?</span>
-            <button
-              @click="locationHref"
-              class="mt-6 block border text-white bg-red-50 rounded-full px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tight"
-            >Jugar</button>
+            <div class="flex justify-center md:justify-start">
+              <button
+                @click="locationHref"
+                class="mt-6 block border text-white bg-red-50 rounded-full px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tight"
+              >Jugar</button>
+            </div>
           </div>
           <div class="image-div order-first md:order-last">
             <img loading="lazy" class="w-full text-left" src="@/assets/all_data.svg" alt="relax" />

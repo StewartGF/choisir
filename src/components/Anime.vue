@@ -4,7 +4,7 @@
     <div
       class="container mx-auto text-center relative text-black h-full align-middle px-8 pb-8 pt-2"
     >
-      <div v-if="isFirstEntry">
+      <div v-if="isFirstEntry" class="pt-4">
         <span class="font-black text-4xl">Versión Anime !💥</span>
         <span class="block mt-6 font-bold text-2xl">Repasemos...</span>
         <span
@@ -14,7 +14,7 @@
           class="block mt-6 text-lg tracking-tighter text-gray-700"
         >Si estás listo, comencemos 🤓</span>
         <button
-          class="border text-white bg-red-50 rounded-full mt-32 px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tigh focus:outline-none"
+          class="border text-white bg-red-50 rounded-full mt-24 px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tigh focus:outline-none"
           @click="isFirstEntry = !isFirstEntry"
         >OK !</button>
       </div>
@@ -25,6 +25,7 @@
         <div v-else-if="lifes==0" class="grid grid-cols-1 w-full pt-12 gap-4">
           <div class="text-lg font-black">oh no.... Perdiste:(</div>
           <img :src="selectedImage" alt=":c" width="400" height="400" class="m-auto" />
+          <p class="text-xl font-black">Obtuviste {{puntuacionAnime}} puntos</p>
           <div class="text-sm mt-12">Inténtalo de nuevo 👇</div>
           <button
             class="border text-white w-3/2 mx-auto bg-red-50 rounded-full mt-4 px-8 md:px-12 p-4 font-black hover:bg-red-20 duration-700 hover:text-white tracking-tigh focus:outline-none"
@@ -33,35 +34,37 @@
         </div>
         <div v-else class="relative">
           <status :puntuacion="puntuacionAnime" />
-          <div class="grid container grid-cols-1 sm:grid-cols-2 gap-4 md:mt-12">
-            <div v-for="anime in animesToPlay" :key="anime.id+1" class="shadow-xl">
+          <div class="grid container grid-cols-1 sm:grid-cols-2 gap-2 md:mt-12 rounded">
+            <div v-for="anime in animesToPlay" :key="anime.id+1" class="shadow-xl rounded">
               <div
                 :id="anime.id"
                 :class="[ anime.higher ? 'bg-green-500 text-white' : 'bg-white' , anime.lower ? 'bg-red-500 text-white' : 'bg-white']"
-                class="group relative border-2 hover:border-4 hover:border-teal-50 p-2 w-full rounded overflow-hidden h-auto shadow-lg transition ease-out duration-500"
+                class="group relative p-2 border-2 border-transparent hover:border-teal-50 w-full rounded cursor-pointer h-auto shadow-lg transition ease-out duration-500"
                 @click="handleSelection(anime)"
               >
                 <span
-                  class="absolute font-bold text-xl top-0 right-0 mr-5"
+                  class="absolute font-bold text-base md:text-lg top-0 right-0 mr-5"
                   v-if="showScore"
                 >⭐{{anime.score}}</span>
-                <img
-                  loading="lazy"
-                  class="w-full h-32 lg:h-64 object-contain md:object-contain duration-700"
-                  :src="anime.imageSmall ? anime.imageSmall : anime.imageLarge ? anime.imageLarge : anime.imageOriginal"
-                  alt="Sunset in the mountains"
-                />
+                <div class="overflow-hidden">
+                  <img
+                    loading="lazy"
+                    class="w-full h-32 lg:h-64 object-contain duration-500 transform scale-100 group-hover:scale-125 md:group-hover:scale-110"
+                    :src="anime.imageSmall ? anime.imageSmall : anime.imageLarge ? anime.imageLarge : anime.imageOriginal"
+                    alt="animeimage"
+                  />
+                </div>
                 <div class="px-1 py-0 lg:px-6 lg:py-4">
                   <div
-                    class="font-bold text-xl mb-0 md:mb-2 w-full truncate lg:break-words"
+                    class="font-bold text-xs md:text-lg mb-0 md:mb-2 w-full truncate lg:break-words"
                   >{{ anime.enName}}</div>
-                  <p class="text-gray-700 text-base font-black">
+                  <p class="text-gray-700 text-xs font-black">
                     <span
-                      class="border group-hover:border-2 text-xs border-full bg-gray-400 px-2 rounded-full"
+                      class="border-2 border-full bg-gray-400 px-2 rounded-full"
                     >{{anime.jpName}}</span>
                   </p>
-                  <p class="text-base">Episodios: {{anime.episodeCount}}</p>
-                  <p class="text-base">Fecha de emisión:{{anime.startDate}}</p>
+                  <p class="text-xs">Episodios: {{anime.episodeCount}}</p>
+                  <p class="text-xs">Fecha de emisión:{{anime.startDate}}</p>
                 </div>
               </div>
             </div>
