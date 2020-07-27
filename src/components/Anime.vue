@@ -170,6 +170,10 @@ export default {
     LoadingSpinner,
     Status,
   },
+  beforeDestroy() {
+    this.$store.state.puntuacionAnime = 0;
+    this.$store.state.lifes = ["♥", "♥", "♥", "♥", "♥"];
+  },
   created() {
     const idx = Math.floor(Math.random() * this.images.length);
     this.selectedImage = this.images[idx];

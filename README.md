@@ -1,30 +1,30 @@
-![npm](https://img.shields.io/badge/TailwindCSS-v1.5.2-39C9C3) ![npm](https://img.shields.io/badge/VueJS-v2.6.11-brightgreen) ![npm](https://img.shields.io/badge/Vuex-v3.2.0-green) ![npm](https://img.shields.io/badge/VueRouter-v3.3.4-yellowgreen) ![npm](https://img.shields.io/badge/Kitsu.io-API-orange) ![npm](https://img.shields.io/badge/Rawg.io-API-black) ![npm](https://img.shields.io/badge/TVMaze.com-API-3C948B)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ac04ee1c-9fda-4b48-b910-e42c4025d9e2/deploy-status)](https://app.netlify.com/sites/choisir-stewartgf/deploys) ![npm](https://img.shields.io/badge/TailwindCSS-v1.5.2-39C9C3) ![npm](https://img.shields.io/badge/VueJS-v2.6.11-brightgreen) ![npm](https://img.shields.io/badge/Vuex-v3.2.0-green) ![npm](https://img.shields.io/badge/VueRouter-v3.3.4-yellowgreen) ![npm](https://img.shields.io/badge/Kitsu.io-API-orange) ![npm](https://img.shields.io/badge/Rawg.io-API-black) ![npm](https://img.shields.io/badge/TVMaze.com-API-3C948B)
 
-# Deploy 🌐
+# 🌐 Deploy
 
 https://choisir-stewartgf.netlify.app/
 
-# Choisir 🤓
+# 🎴 Choisir
 
 Qué tan buenas primeras impresiones tienes?
 
-## Tecnologías utilizadas
+## 👨🏻‍💻 Tecnologías utilizadas
 
 - Vue.js
 - Vuex
 - Vue Router
 
-## Framework CSS
+## 🎨 Framework CSS
 
 - Tailwind CSS -> instalar con `vue add tailwind`
 
-## APIs consumidas
+## 👉🏻 APIs consumidas
 
 - https://kitsu.io/explore/anime ➡ https://kitsu.docs.apiary.io/
 - https://rawg.io/ ➡ https://api.rawg.io/api/games
 - http://www.tvmaze.com/ ➡ http://www.tvmaze.com/api
 
-# TODO 📜
+# 📜 TODO
 
 - [x] Preparar el Landing page
 
