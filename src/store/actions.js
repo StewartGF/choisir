@@ -93,7 +93,7 @@ export const getAnimesToPlay = ({ state, commit }) => {
 
 export const getSeriesData = async ({ dispatch, commit }) => {
   commit("SET_LOADING", true);
-  const response = await fetch(`http://api.tvmaze.com/shows`);
+  const response = await fetch(`https://api.tvmaze.com/shows`);
   if (response) {
     let data = await response.json();
     commit("SET_SERIES_DATA", data);
