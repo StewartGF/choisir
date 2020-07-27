@@ -298,6 +298,7 @@ module.exports = {
     inset: {
       "0": "0",
       auto: "auto",
+      "1/2": "50%",
     },
     letterSpacing: {
       tighter: "-0.05em",
@@ -733,7 +734,7 @@ module.exports = {
     gridRowEnd: ["responsive"],
     transform: ["responsive"],
     transformOrigin: ["responsive"],
-    scale: ["responsive", "hover", "focus"],
+    scale: ["responsive", "hover", "focus", "group-hover"],
     rotate: ["responsive", "hover", "focus"],
     translate: ["responsive", "hover", "focus"],
     skew: ["responsive", "hover", "focus"],
